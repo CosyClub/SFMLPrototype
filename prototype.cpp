@@ -111,9 +111,9 @@ int main()
         }
 
         window.clear();
-        for (int I = 0; I < SIZE; I+=GRID)
+        for (int I = 0; I <= SIZE; I+=GRID)
         {
-            for (int J = 0; J < SIZE; J+=GRID)
+            for (int J = 0; J <= SIZE; J+=GRID)
             {
                 window.draw(grid);
                 grid.setPosition(Vector2f(J,I));
