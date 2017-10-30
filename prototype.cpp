@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/Network.hpp>
 
 #include <iostream>
 
@@ -10,6 +11,11 @@ using namespace sf;
 #define DELTA 200
 #define SIZE 1000
 #define GRID 100
+
+const static uint32_t ROG = 1;
+const static uint32_t PNG = 2;
+
+//this stuff is calculated, so don't change it
 #define TIME 60000000 / BPM
 #define LOWERBOUND (DELTA * 1000)
 #define UPPERBOUND TIME - (DELTA * 1000)
@@ -32,6 +38,33 @@ int main()
     sf::RenderWindow window(sf::VideoMode(SIZE, SIZE), "Dance!");
     sf::RectangleShape grid(sf::Vector2f(GRID,GRID));
     Color currentColor = COLOR1;
+
+    IpAddress ad = "faeroes.rccoles.com";
+    unsigned short port = 1337;
+
+    UdpSocket socket;
+    if (socket.bind(1337) != Socket::Done)
+    {
+        cout << "Cannot bind socket (Whatever that means)" << endl; 
+    }
+    else{
+        socket.send(&PNG, 1, ad, port);
+        uint32_t response;
+        size_t len;
+        if (socket.receive(&response, 1, len, ad, port) != Socket::Done)
+        {
+            cout << "Recieve error" << endl;
+        }
+        else if (response == ROG)
+        {
+            cout << "Recieved ROG" << endl;
+        }
+        else
+        {
+            cout << "Bad data recieved" << endl;
+        }
+    }
+    //connect("faeroes.rccoles.com", 1337)
 
     SoundBuffer tickbuffer;
     tickbuffer.loadFromFile("res/tick.ogg");
