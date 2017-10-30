@@ -3,6 +3,7 @@ TARGET_EXEC ?= a.out
 BUILD_DIR ?= ./Build
 SRC_DIRS ?= ./Src
 
+CFLAGS :=
 LDFLAGS := $(shell pkg-config --libs sfml-all)
 CC := g++
 
@@ -12,7 +13,7 @@ CPPFLAGS ?= $(INC_FLAGS) -MMD -MP
 .PHONY: build clean
 
 build:
-	$(CC) $(shell find . -name *.cpp -or -name *.c -or -name *.s) -o a.out $(LDFLAGS)
+	$(CC) $(CFLAGS) $(shell find . -name *.cpp -or -name *.c -or -name *.s) -o a.out $(LDFLAGS)
 
 clean:
 	$(RM) -r $(BUILD_DIR)
