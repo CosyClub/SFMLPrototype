@@ -99,7 +99,7 @@ int main()
         if(player.getPosition().y < 0){
             player.setPosition(player.getPosition().x, 0);
         }
-        if(player.getPosition().x > SIZE){
+        if(player.getPosition().y > SIZE){
             player.setPosition(player.getPosition().x, SIZE);
         }
 
@@ -120,8 +120,9 @@ int main()
                 grid.setFillColor(currentColor);
                 currentColor = switchColor(currentColor);
             }
-            currentColor = switchColor(currentColor);
         }
+        
+        currentColor = switchColor(currentColor);
 
         window.draw(player);
         window.display();
